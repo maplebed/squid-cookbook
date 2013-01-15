@@ -60,7 +60,8 @@ end
 
 url_acl = []
 begin
-  data_bag("squid_urls").each do |bag|
+  url_bags = search(:squid_urls, '*:*')
+  url_bags.each do |bag|
     group = data_bag_item("squid_urls",bag)
     group['urls'].each do |url|
       url_acl.push [group['id'],url]
@@ -72,7 +73,8 @@ end
 
 host_acl = []
 begin
-  data_bag("squid_hosts").each do |bag|
+  host_bags = search(:squid_hosts, '*:*')
+  host_bags.each do |bag|
     group = data_bag_item("squid_hosts",bag)
     group['net'].each do |host|
       host_acl.push [group['id'],group['type'],host]
@@ -84,7 +86,8 @@ end
 
 acls = []
 begin
-  data_bag("squid_acls").each do |bag|
+  acl_bags = search(:squid_acls, '*:*')
+  acl_bags.each do |bag|
     group = data_bag_item("squid_acls",bag)
     group['acl'].each do |acl|
       acls.push [acl[1],group['id'],acl[0]]
